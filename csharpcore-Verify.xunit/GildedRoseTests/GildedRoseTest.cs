@@ -33,7 +33,7 @@ namespace GildedRoseTests
 
         [Fact]
         //Once the sell by date has passed, UpdateQuality method reduces Quality twice as fast
-        public void UpdateQuality_Should_ReduceQualityTwiceAsFast_When_SellByDateHasPassed()
+        public void UpdateQuality_Should_ReduceTwiceAsFast_When_SellByDateHasPassed()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = -1, Quality = 20 } };
             GildedRose app = new GildedRose(Items);
@@ -170,6 +170,18 @@ namespace GildedRoseTests
             app.UpdateQuality();
 
             Assert.Equal(18, Items[0].Quality);
+        }
+
+        [Fact]
+        //"Conjured" items degrade in Quality twice as fast as normal items, including after expiring
+        public void UpdateQuality_Should_ReduceQualityTwiceAsFast_When_ItemIsNamedConjuredAndSellInIsPast()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Conjured", SellIn = -1, Quality = 20 } };
+            GildedRose app = new GildedRose(Items);
+
+            app.UpdateQuality();
+
+            Assert.Equal(16, Items[0].Quality);
         }
     }
 }
