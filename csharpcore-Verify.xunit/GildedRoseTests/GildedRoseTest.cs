@@ -83,13 +83,13 @@ namespace GildedRoseTests
         //"Sulfuras", being a legendary item, never has to be sold or decreases in Quality
         public void UpdateQuality_Should_NotChangeQualityOrSellIn_When_TheItemIsSulfuras()
         {
-            IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 20 } };
+            IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 } };
             GildedRose app = new GildedRose(Items);
 
             app.UpdateQuality();
 
             Assert.Equal(5, Items[0].SellIn);
-            Assert.Equal(20, Items[0].Quality);
+            Assert.Equal(80, Items[0].Quality);
         }
 
         [Fact]
